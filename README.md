@@ -1,90 +1,91 @@
-# API Rest - Gestión de Libros y Autores (Laravel 5.8)
+# API Rest - Gestión de Libros y Autores
 
-Prueba técnica implementada utilizando **Laravel 5.8** sobre un entorno contenerizado con **Docker** (PHP 7.4 + Nginx + SQLite).
+![PHP](https://img.shields.io/badge/PHP-7.4-blue)
+![Laravel](https://img.shields.io/badge/Laravel-5.8-red)
+![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED)
 
-## 📋 Características Técnicas
-- **Arquitectura:** MVC con Servicios desacoplados.
-- **Patrones:** Uso de `Events` y `Jobs` para el procesamiento asíncrono (actualización de contadores).
-- **Seguridad:** Autenticación vía **JWT (JSON Web Tokens)**.
-- **Validación:** Uso de `FormRequests` para separar la validación de la lógica del controlador.
-- **Base de Datos:** SQLite (configurada para persistencia en entorno local).
-- **Exportación:** Generación de reportes en Excel (.xlsx).
+API REST desarrollada en **Laravel 5.8** para la gestión de bibliotecas (autores y libros). El proyecto se encuentra contenerizado mediante **Docker** (Nginx + PHP 7.4 + SQLite), implementando autenticación JWT y procesamiento de tareas en segundo plano.
 
-## 🚀 Instrucciones de Instalación y Despliegue
+## Descripción Técnica
 
-Siga estos pasos para levantar el proyecto en cualquier máquina con Docker instalado.
+El sistema implementa una arquitectura MVC desacoplada, priorizando la escalabilidad y el orden del código mediante los siguientes patrones:
 
-### 1. Clonar el repositorio
-```bash
-git clone <URL_DE_TU_REPO>
-cd prueba_tecnica
+* **Procesamiento Asíncrono:** Actualización de contadores mediante el patrón Observer (Events & Jobs) para no bloquear el hilo principal de la petición HTTP.
+* **Seguridad:** Implementación de `tymon/jwt-auth` para autenticación stateless.
+* **Validación:** Lógica de validación extraída a `FormRequests`.
+* **Persistencia:** SQLite configurado para facilitar el despliegue en entornos de desarrollo/prueba sin dependencias externas pesadas.
+* **Reportes:** Generación de archivos Excel (.xlsx) mediante `maatwebsite/excel`.
 
-2. Levantar contenedores Docker
-docker-compose up -d --build
+## Requisitos Previos
 
-3. Instalar dependencias y configurar entorno
-# Instalar dependencias de Composer
-docker-compose exec app composer install
+* Docker
+* Docker Compose
+* Cliente REST (Insomnia o Postman)
 
-# Configurar permisos de carpetas
-docker-compose exec app chmod -R 777 storage bootstrap/cache
+## Instalación
 
-# Crear archivo de base de datos SQLite
-docker-compose exec app touch database/database.sqlite
+Sigue estos pasos para levantar el entorno de desarrollo.
 
-# Correr migraciones
-docker-compose exec app php artisan migrate
+1.  **Clonar el repositorio:**
+    ```bash
+    git clone https://github.com/moramjose/laravel58_docker.git
+    cd laravel58_docker
+    ```
 
-# Generar clave de aplicación y secreto JWT
-docker-compose exec app php artisan key:generate
-docker-compose exec app php artisan jwt:secret
+2.  **Construir y levantar contenedores:**
+    ```bash
+    docker-compose up -d --build
+    ```
 
-El proyecto estará disponible en: http://localhost:8058
+3.  **Configuración del entorno:**
+    Ejecuta los siguientes comandos para instalar dependencias, configurar permisos y preparar la base de datos dentro del contenedor:
 
-🧪 Cómo Probar (Testing)
-Se adjunta en la raíz del proyecto el archivo insomnia_collection.json con todas las peticiones configuradas.
+    ```bash
+    # Instalar dependencias de PHP
+    docker-compose exec app composer install
 
-Flujo de prueba recomendado:
-Auth > Register: Crear un usuario para obtener el Token.
+    # Ajustar permisos de escritura
+    docker-compose exec app chmod -R 777 storage bootstrap/cache
 
-Autenticación: Copiar el access_token y usarlo como Bearer Token en las siguientes peticiones.
+    # Crear base de datos SQLite
+    docker-compose exec app touch database/database.sqlite
 
-Authors > Create: Crear un autor.
+    # Ejecutar migraciones
+    docker-compose exec app php artisan migrate
 
-Books > Create: Crear un libro asignado a ese autor.
+    # Generar claves de aplicación y JWT
+    docker-compose exec app php artisan key:generate
+    docker-compose exec app php artisan jwt:secret
+    ```
 
-Nota: Al crear el libro, se dispara un Job en segundo plano que actualiza el campo books_count del autor.
+La API estará disponible en: `http://localhost:8058`
 
-Export > Download Excel: Descarga el reporte completo.
+## Uso y Endpoints
 
-📂 Estructura del Proyecto Docker
-docker/Dockerfile: Imagen personalizada de PHP 7.4 FPM.
+Se incluye el archivo `insomnia_collection.yaml` en la raíz del proyecto. Puede importarse directamente en Insomnia (o Postman) para disponer de todas las peticiones configuradas.
 
-docker/nginx: Configuración del servidor web.
+### Flujo de prueba
 
-src/: Código fuente de Laravel.
+1.  **Autenticación:**
+    * `POST /api/auth/register`: Crea un usuario nuevo.
+    * `POST /api/auth/login`: Retorna el `access_token`.
+    * *Nota:* Todas las peticiones siguientes requieren el header `Authorization: Bearer <TOKEN>`.
 
+2.  **Autores y Libros:**
+    * `POST /api/authors`: Crea un autor.
+    * `POST /api/books`: Registra un libro y lo asocia a un autor.
+    * *Comportamiento:* Al crear un libro, se dispara un Job que recalcula y actualiza el campo `books_count` del autor asociado.
 
-*(Recuerda guardar el archivo `Cmd + S`)*.
+3.  **Exportación:**
+    * `GET /api/export`: Descarga un archivo Excel con el listado de autores y sus libros.
 
----
+## Estructura del Proyecto
 
-### 2. El Archivo `.gitignore` (¡Muy Importante!)
+* `docker/`: Configuración de infraestructura (Dockerfile PHP 7.4 y Nginx).
+* `src/app/Events` y `src/app/Jobs`: Lógica para el procesamiento asíncrono.
+* `src/app/Http/Requests`: Validaciones de entrada.
+* `src/database/database.sqlite`: Archivo de base de datos (generado tras la instalación).
 
-Antes de subir nada, necesitamos decirle a Git qué **NO** subir (como la carpeta `vendor` que pesa mucho o tus claves secretas).
+## Notas Adicionales
 
-1.  En VS Code, en la raíz (al mismo nivel que `docker-compose.yml`), crea un archivo nuevo llamado **`.gitignore`**.
-2.  Pega esto dentro:
-
-```text
-# Ignorar dependencias de PHP
-src/vendor/
-
-# Ignorar configuración de entorno local
-src/.env
-
-# Ignorar archivos de sistema y temporales
-.DS_Store
-src/storage/*.key
-src/storage/logs/*.log
-src/database/database.sqlite
+El entorno está configurado con `QUEUE_CONNECTION=sync` en el archivo `.env` para que los Jobs se ejecuten inmediatamente sin necesidad de configurar un worker de colas adicional para esta prueba.

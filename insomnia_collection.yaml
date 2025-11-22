@@ -1,0 +1,253 @@
+type: collection.insomnia.rest/5.0
+name: Scratch Pad
+meta:
+  id: wrk_scratchpad
+  created: 1759353775632
+  modified: 1759353775632
+  description: ""
+collection:
+  - name: Laravel 5.8
+    meta:
+      id: fld_004e37aa8dd14d0fbbdda50a4e3aa71f
+      created: 1763843622131
+      modified: 1763845010720
+      sortKey: -1763843622131
+      description: ""
+    children:
+      - url: http://192.168.0.199:8058/api/auth/register
+        name: Register
+        meta:
+          id: req_a657f88fa44a441e9f5c234d1a9392b8
+          created: 1763842864211
+          modified: 1763843637900
+          isPrivate: false
+          description: ""
+          sortKey: -1763843625709
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "Jose Mora",
+            	"email": "jmoraw7@gmail.com",
+            	"password": "123456"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.1
+            id: pair_f6d00ed241f34557bf3fd3f083f77a06
+          - id: pair_88f0848186504eff8fff87598023a556
+            name: Accept
+            value: application/json
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://192.168.0.199:8058/api/authors
+        name: Create author
+        meta:
+          id: req_1475680950c74def9a41fe78e2f903a6
+          created: 1763843540607
+          modified: 1763843691409
+          isPrivate: false
+          description: ""
+          sortKey: -1763843625609
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "Gabriel García Márquez"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_a6340ad1574e450890552772c857a165
+          - name: User-Agent
+            value: insomnia/11.6.1
+            id: pair_f6d00ed241f34557bf3fd3f083f77a06
+          - id: pair_88f0848186504eff8fff87598023a556
+            name: Accept
+            value: application/json
+            description: ""
+            disabled: false
+          - id: pair_c2ffa92d6dd94fdaa4c955e0822e13cf
+            name: Authorization
+            value: Bearer
+              eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTkyLjE2OC4wLjE5OTo4MDU4L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzYzODQzNjUwLCJleHAiOjE3NjM4NDcyNTAsIm5iZiI6MTc2Mzg0MzY1MCwianRpIjoiZ3YwQkhFM1QwTkpNeFJLQSIsInN1YiI6IjEiLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.vHMjPnf5TsgYPlGUtX63AuYRXA_COAzie0Z7ItiukXA
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://192.168.0.199:8058/api/auth/login
+        name: Login
+        meta:
+          id: req_b68291d6c8e546b6ad91bb5543e98ad8
+          created: 1763843611195
+          modified: 1763843649355
+          isPrivate: false
+          description: ""
+          sortKey: -1763843625659
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "jmoraw7@gmail.com",
+            	"password": "123456"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.1
+            id: pair_f6d00ed241f34557bf3fd3f083f77a06
+          - id: pair_88f0848186504eff8fff87598023a556
+            name: Accept
+            value: application/json
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://192.168.0.199:8058/api/books
+        name: Create book
+        meta:
+          id: req_05d8b7d0bbf34918bbf32889074610e5
+          created: 1763843712284
+          modified: 1763844088845
+          isPrivate: false
+          description: ""
+          sortKey: -1763843625559
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"title": "Cien Años de Soledad 3",
+            	"author_id": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_a6340ad1574e450890552772c857a165
+          - name: User-Agent
+            value: insomnia/11.6.1
+            id: pair_f6d00ed241f34557bf3fd3f083f77a06
+          - id: pair_88f0848186504eff8fff87598023a556
+            name: Accept
+            value: application/json
+            description: ""
+            disabled: false
+          - id: pair_c2ffa92d6dd94fdaa4c955e0822e13cf
+            name: Authorization
+            value: Bearer
+              eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTkyLjE2OC4wLjE5OTo4MDU4L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzYzODQzNjUwLCJleHAiOjE3NjM4NDcyNTAsIm5iZiI6MTc2Mzg0MzY1MCwianRpIjoiZ3YwQkhFM1QwTkpNeFJLQSIsInN1YiI6IjEiLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.vHMjPnf5TsgYPlGUtX63AuYRXA_COAzie0Z7ItiukXA
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://192.168.0.199:8058/api/authors/1
+        name: Get books of author
+        meta:
+          id: req_1694f59f3336425dbbe5479ce1a081e3
+          created: 1763843756267
+          modified: 1763843779238
+          isPrivate: false
+          description: ""
+          sortKey: -1763843625509
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.1
+            id: pair_f6d00ed241f34557bf3fd3f083f77a06
+          - id: pair_88f0848186504eff8fff87598023a556
+            name: Accept
+            value: application/json
+            description: ""
+            disabled: false
+          - id: pair_c2ffa92d6dd94fdaa4c955e0822e13cf
+            name: Authorization
+            value: Bearer
+              eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTkyLjE2OC4wLjE5OTo4MDU4L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzYzODQzNjUwLCJleHAiOjE3NjM4NDcyNTAsIm5iZiI6MTc2Mzg0MzY1MCwianRpIjoiZ3YwQkhFM1QwTkpNeFJLQSIsInN1YiI6IjEiLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.vHMjPnf5TsgYPlGUtX63AuYRXA_COAzie0Z7ItiukXA
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://192.168.0.199:8058/api/export
+        name: Export excel
+        meta:
+          id: req_01d955336a1f4163b9ffccc1acef836e
+          created: 1763843821826
+          modified: 1763843831561
+          isPrivate: false
+          description: ""
+          sortKey: -1763843625459
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.1
+            id: pair_f6d00ed241f34557bf3fd3f083f77a06
+          - id: pair_88f0848186504eff8fff87598023a556
+            name: Accept
+            value: application/json
+            description: ""
+            disabled: false
+          - id: pair_c2ffa92d6dd94fdaa4c955e0822e13cf
+            name: Authorization
+            value: Bearer
+              eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTkyLjE2OC4wLjE5OTo4MDU4L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzYzODQzNjUwLCJleHAiOjE3NjM4NDcyNTAsIm5iZiI6MTc2Mzg0MzY1MCwianRpIjoiZ3YwQkhFM1QwTkpNeFJLQSIsInN1YiI6IjEiLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.vHMjPnf5TsgYPlGUtX63AuYRXA_COAzie0Z7ItiukXA
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1759353800323
+    modified: 1759353800323
+environments:
+  name: Base Environment
+  meta:
+    id: env_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1759353800322
+    modified: 1759353800322
+    isPrivate: false
