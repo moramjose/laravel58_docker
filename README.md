@@ -1,91 +1,129 @@
-# API Rest - Gestión de Libros y Autores
+````markdown
+# Sistema de Gestión de Bibliotecas (Full Stack)
 
-![PHP](https://img.shields.io/badge/PHP-7.4-blue)
-![Laravel](https://img.shields.io/badge/Laravel-5.8-red)
-![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED)
+![PHP](https://img.shields.io/badge/PHP-7.4-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![Laravel](https://img.shields.io/badge/Laravel-5.8-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![Angular](https://img.shields.io/badge/Angular-16-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
 
-API REST desarrollada en **Laravel 5.8** para la gestión de bibliotecas (autores y libros). El proyecto se encuentra contenerizado mediante **Docker** (Nginx + PHP 7.4 + SQLite), implementando autenticación JWT y procesamiento de tareas en segundo plano.
+Solución integral **Full Stack** para la gestión de bibliotecas. Combina una API REST robusta en **Laravel 5.8** (Legacy/LTS) con un cliente moderno en **Angular 16**, todo orquestado sobre una infraestructura contenerizada con **Docker**.
 
-## Descripción Técnica
+## 🛠️ Descripción Técnica y Arquitectura
 
-El sistema implementa una arquitectura MVC desacoplada, priorizando la escalabilidad y el orden del código mediante los siguientes patrones:
+El proyecto demuestra la integración de tecnologías legacy y modernas mediante microservicios:
 
-* **Procesamiento Asíncrono:** Actualización de contadores mediante el patrón Observer (Events & Jobs) para no bloquear el hilo principal de la petición HTTP.
-* **Seguridad:** Implementación de `tymon/jwt-auth` para autenticación stateless.
-* **Validación:** Lógica de validación extraída a `FormRequests`.
-* **Persistencia:** SQLite configurado para facilitar el despliegue en entornos de desarrollo/prueba sin dependencias externas pesadas.
-* **Reportes:** Generación de archivos Excel (.xlsx) mediante `maatwebsite/excel`.
+### Backend (API REST)
+* **Core:** Laravel 5.8 ejecutándose en PHP 7.4.
+* **Patrones:** Event-Driven Architecture (Events & Jobs) para actualizaciones asíncronas de contadores.
+* **Seguridad:** Autenticación Stateless vía JWT (`tymon/jwt-auth`).
+* **Persistencia:** SQLite para portabilidad inmediata.
+* **Features:** CRUD completo, Validaciones mediante FormRequests y Exportación a Excel.
 
-## Requisitos Previos
+### Frontend (SPA)
+* **Core:** Angular 16.
+* **UI/UX:** Diseño responsivo con Bootstrap 5.
+* **Seguridad:** Guards para protección de rutas y manejo de interceptores HTTP.
+* **Funcionalidad:** Consumo de API, descarga de archivos binarios (BLOB) y gestión de estado.
 
-* Docker
-* Docker Compose
-* Cliente REST (Insomnia o Postman)
+---
 
-## Instalación
+## 🚀 Instrucciones de Instalación y Despliegue
 
-Sigue estos pasos para levantar el entorno de desarrollo.
+Siga estos pasos para levantar el entorno completo (Back + Front) en cualquier máquina con Docker.
 
-1.  **Clonar el repositorio:**
-    ```bash
-    git clone https://github.com/moramjose/laravel58_docker.git
-    cd laravel58_docker
-    ```
+### 1. Clonar el repositorio
+```bash
+git clone <URL_DE_TU_REPO>
+cd prueba_tecnica
+````
 
-2.  **Construir y levantar contenedores:**
-    ```bash
-    docker-compose up -d --build
-    ```
+### 2\. Levantar infraestructura
 
-3.  **Configuración del entorno:**
-    Ejecuta los siguientes comandos para instalar dependencias, configurar permisos y preparar la base de datos dentro del contenedor:
+Esto construirá las imágenes de PHP y Node.js y levantará los servicios.
 
-    ```bash
-    # Instalar dependencias de PHP
-    docker-compose exec app composer install
+```bash
+docker-compose up -d --build
+```
 
-    # Ajustar permisos de escritura
-    docker-compose exec app chmod -R 777 storage bootstrap/cache
+### 3\. Configuración del Backend (Laravel)
 
-    # Crear base de datos SQLite
-    docker-compose exec app touch database/database.sqlite
+Ejecute estos comandos para instalar dependencias de PHP y preparar la base de datos:
 
-    # Ejecutar migraciones
-    docker-compose exec app php artisan migrate
+```bash
+# Instalar dependencias
+docker-compose exec app composer install
 
-    # Generar claves de aplicación y JWT
-    docker-compose exec app php artisan key:generate
-    docker-compose exec app php artisan jwt:secret
-    ```
+# Permisos de escritura
+docker-compose exec app chmod -R 777 storage bootstrap/cache
 
-La API estará disponible en: `http://localhost:8058`
+# Base de datos y Migraciones
+docker-compose exec app touch database/database.sqlite
+docker-compose exec app php artisan migrate
 
-## Uso y Endpoints
+# Claves de seguridad
+docker-compose exec app php artisan key:generate
+docker-compose exec app php artisan jwt:secret
+```
 
-Se incluye el archivo `insomnia_collection.yaml` en la raíz del proyecto. Puede importarse directamente en Insomnia (o Postman) para disponer de todas las peticiones configuradas.
+### 4\. Configuración del Frontend (Angular)
 
-### Flujo de prueba
+Instale las dependencias de Node.js dentro del contenedor:
 
-1.  **Autenticación:**
-    * `POST /api/auth/register`: Crea un usuario nuevo.
-    * `POST /api/auth/login`: Retorna el `access_token`.
-    * *Nota:* Todas las peticiones siguientes requieren el header `Authorization: Bearer <TOKEN>`.
+```bash
+docker-compose exec frontend npm install
+```
 
-2.  **Autores y Libros:**
-    * `POST /api/authors`: Crea un autor.
-    * `POST /api/books`: Registra un libro y lo asocia a un autor.
-    * *Comportamiento:* Al crear un libro, se dispara un Job que recalcula y actualiza el campo `books_count` del autor asociado.
+*Nota: Una vez finalizado, es posible que deba reiniciar el contenedor del frontend si no carga inmediatamente:*
 
-3.  **Exportación:**
-    * `GET /api/export`: Descarga un archivo Excel con el listado de autores y sus libros.
+```bash
+docker-compose restart frontend
+```
 
-## Estructura del Proyecto
+-----
 
-* `docker/`: Configuración de infraestructura (Dockerfile PHP 7.4 y Nginx).
-* `src/app/Events` y `src/app/Jobs`: Lógica para el procesamiento asíncrono.
-* `src/app/Http/Requests`: Validaciones de entrada.
-* `src/database/database.sqlite`: Archivo de base de datos (generado tras la instalación).
+## 🖥️ Acceso y Uso
 
-## Notas Adicionales
+El sistema expone dos puntos de acceso principales:
 
-El entorno está configurado con `QUEUE_CONNECTION=sync` en el archivo `.env` para que los Jobs se ejecuten inmediatamente sin necesidad de configurar un worker de colas adicional para esta prueba.
+### 1\. Cliente Web (Angular)
+
+  * **URL:** `http://localhost:4200`
+  * **Funcionalidades:**
+      * **Registro/Login:** Cree una cuenta para obtener acceso.
+      * **Dashboard:** Visualice y gestione autores.
+      * **Operaciones:** Cree nuevos libros (esto disparará el Job en el backend) y descargue el reporte en Excel.
+
+### 2\. API REST (Laravel)
+
+  * **URL:** `http://localhost:8058`
+  * **Testing:** Se adjunta el archivo `insomnia_collection.yaml` en la raíz para probar los endpoints directamente.
+
+-----
+
+## 📂 Estructura del Proyecto
+
+```text
+├── docker/                  # Configuración de infraestructura (PHP/Nginx)
+├── src/                     # Código Fuente Backend (Laravel)
+│   ├── app/Events/          # Lógica asíncrona
+│   ├── app/Jobs/            # Workers en segundo plano
+│   └── database/            # SQLite
+├── client/                  # Código Fuente Frontend (Angular)
+│   ├── src/app/components/  # Vistas (Login, Authors, Books)
+│   ├── src/app/services/    # Comunicación HTTP
+│   └── src/app/guards/      # Seguridad de rutas
+└── docker-compose.yml       # Orquestación de servicios
+```
+
+-----
+
+## 📄 Notas Adicionales
+
+  * **Colas de Trabajo:** El entorno está configurado con `QUEUE_CONNECTION=sync` para que los Jobs de actualización de contadores se ejecuten inmediatamente.
+  * **CORS:** Se ha configurado un Middleware personalizado en Laravel para permitir la comunicación fluida con el puerto 4200 de Angular.
+
+<!-- end list -->
+
+```
+```
