@@ -1,1 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
+/* Fuente Global */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f0f2f5; /* Gris muy suave, tipo Facebook/LinkedIn */
+  color: #344767;
+}
+
+/* Tarjetas con efecto flotante */
+.card {
+  border: none;
+  border-radius: 1rem; /* Bordes muy redondos */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Animación hover suave para tarjetas */
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Botones modernos */
+.btn {
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+/* Encabezados de tarjetas */
+.card-header {
+  background-color: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 1rem 1rem 0 0 !important;
+  padding: 1.5rem;
+  font-weight: 600;
+}
+
+/* Inputs bonitos */
+.form-control, .form-select {
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e0e0e0;
+  background-color: #fdfdfd;
+}
+.form-control:focus {
+  box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.15);
+  border-color: #86b7fe;
+}

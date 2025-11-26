@@ -1,36 +1,45 @@
-<div class="row justify-content-center mt-4">
-  <div class="col-md-6">
-    <div class="card shadow-sm">
-      <div class="card-header bg-dark text-white">
-        <h5 class="mb-0">📚 Registrar Nuevo Libro</h5>
-      </div>
-      <div class="card-body bg-light">
-        
-        <div class="mb-3">
-          <label class="form-label fw-bold">Título del Libro:</label>
-          <input [(ngModel)]="bookTitle" class="form-control" placeholder="Ej. Cien Años de Soledad">
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-8">
+    
+    <div class="d-flex align-items-center mb-4">
+      <a routerLink="/authors" class="btn btn-light rounded-circle me-3 shadow-sm">
+        <i class="bi bi-arrow-left"></i>
+      </a>
+      <h2 class="fw-bold mb-0">Registrar Libro</h2>
+    </div>
+
+    <div class="card shadow-lg border-0 overflow-hidden">
+      <div class="row g-0">
+        <div class="col-md-4 bg-primary text-white p-4 d-flex flex-column justify-content-center align-items-center text-center d-none d-md-flex">
+          <i class="bi bi-book display-1 mb-3 opacity-50"></i>
+          <h4>Nueva Obra</h4>
+          <p class="small opacity-75">El contador del autor se actualizará automáticamente.</p>
         </div>
 
-        <div class="mb-3">
-          <label class="form-label fw-bold">Asignar a Autor:</label>
-          <select [(ngModel)]="selectedAuthorId" class="form-select">
-            <option value="" disabled selected>Seleccione un autor...</option>
-            <option *ngFor="let author of authors" [value]="author.id">
-              {{ author.name }}
-            </option>
-          </select>
-        </div>
+        <div class="col-md-8 p-4 bg-white">
+          <div class="mb-4">
+            <label class="form-label text-uppercase text-muted small fw-bold">Título de la Obra</label>
+            <input [(ngModel)]="bookTitle" class="form-control form-control-lg" placeholder="Ej. El Principito">
+          </div>
 
-        <div class="d-grid gap-2">
-          <button (click)="createBook()" class="btn btn-primary">
-            Guardar Libro
-          </button>
-          <a routerLink="/authors" class="btn btn-outline-secondary">
-            Volver al Listado
-          </a>
-        </div>
+          <div class="mb-4">
+            <label class="form-label text-uppercase text-muted small fw-bold">Autor Responsable</label>
+            <select [(ngModel)]="selectedAuthorId" class="form-select form-select-lg">
+              <option value="" disabled selected>Selecciona un autor...</option>
+              <option *ngFor="let author of authors" [value]="author.id">
+                {{ author.name }}
+              </option>
+            </select>
+          </div>
 
+          <div class="d-grid mt-5">
+            <button (click)="createBook()" class="btn btn-primary btn-lg shadow-sm">
+              <i class="bi bi-save me-2"></i> Guardar y Procesar
+            </button>
+          </div>
+        </div>
       </div>
     </div>
+
   </div>
 </div>
