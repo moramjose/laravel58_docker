@@ -5,19 +5,19 @@ import { RegisterComponent } from './components/register/register.component';
 import { AuthorsComponent } from './components/authors/authors.component';
 import { BooksComponent } from './components/books/books.component';
 import { authGuard } from './guards/auth.guard';
-import { guestGuard } from './guards/guest.guard'; // <--- 1. IMPORTAR
+import { guestGuard } from './guards/guest.guard';
 
 const routes: Routes = [
   // rutas publicas
   { 
     path: 'login', 
     component: LoginComponent, 
-    canActivate: [guestGuard] // <--- 2. AGREGAR AQUÍ
+    canActivate: [guestGuard]
   },
   { 
     path: 'register', 
     component: RegisterComponent, 
-    canActivate: [guestGuard] // <--- 3. AGREGAR AQUÍ
+    canActivate: [guestGuard]
   },
   
   // rutas privadas
