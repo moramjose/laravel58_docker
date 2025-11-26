@@ -119,6 +119,3 @@ El sistema expone dos puntos de acceso principales:
   * **CORS:** Se ha configurado un Middleware personalizado en Laravel para permitir la comunicación fluida con el puerto 4200 de Angular.
 
 <!-- end list -->
-
-```
-```
