@@ -29,7 +29,7 @@ Siga estos pasos para levantar el entorno completo (Back + Front) en cualquier m
 
 ### 1. Clonar el repositorio
 ```bash
-git clone <URL_DE_TU_REPO>
+git clone https://github.com/moramjose/laravel58_docker.git
 cd prueba_tecnica
 ````
 
